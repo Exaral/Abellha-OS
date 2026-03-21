@@ -1,5 +1,7 @@
 # Abéllha OS Installation Guide
 -------------------------------
+Please, download this file!
+-------------------------------
 Firstly, install Debian or Ubuntu on your PC that will use Abéllha OS, recommended on **GNOME Session**. After the installation open the terminal and type or paste: "**sudo nano /etc/os-release**" type your password and when nano appears change everything from the original to this 
 
 PRETTY_NAME="Abéllha OS"
@@ -19,4 +21,52 @@ sudo apt install gnome-shell-extension-manager dconf-editor git flatpak -y**
 
 And this **sudo apt install gnome-shell-extensions gnome-shell-extension-dash-to-panel gnome-shell-extension-arc-menu -y**
 Now, you are changing the Debian logo on fastfetch to the Abéllha OS logo. So lets go!
-First **mkdir -p ~/.config/fastfetch** and **fastfetch --gen-config ~/.config/fastfetch/config.jsonc** and so **nano ~/.config/fastfetch/config.jsonc**
+First **mkdir -p ~/.config/fastfetch** and **fastfetch --gen-config ~/.config/fastfetch/config.jsonc**.
+Add the file in Fastfetch folder (fastfetcher.txt) to your ~/ (user) folder; and do this command **nano ~/.config/fastfetch/config.jsonc** and in nano add exactly this:
+
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "/home/abellha/fastfetcher.txt",
+    "type": "auto",
+    "padding": {
+      "top": 1,
+      "right": 2
+    },
+    "color": {
+      "1": "red"
+    }
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ]
+}
+
