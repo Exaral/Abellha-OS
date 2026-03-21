@@ -1,6 +1,6 @@
 # Abéllha OS Installation Guide
 -------------------------------
-*Please, download this file!
+Please, download this file!
 -------------------------------
 *The cause is that it will be confuse if not downloaded!*
 **Hey, man, wanna take a look of how will be the system? Take a look on Screenshots folders!**
