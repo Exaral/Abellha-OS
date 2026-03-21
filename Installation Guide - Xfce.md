@@ -1,3 +1,7 @@
-First, if it is not installed, install the xfce4 and the xfce4-goodies with:
+First, if it is not installed, install the xfce4 and the xfce4-goodies with (and remember to have Debian/Xubuntu installed with xfce4-session):
 "**sudo apt update && sudo apt install xfce4 xfce4-goodies -y**"
-Now you will be changing the background image: enter Settings, Desktop and change it to the Abéllha OS' file.
+Now you will be changing the background image: click on the menu on top, settings, Desktop and change it to the Abéllha OS' file on Wallpapers folder.
+Tip: It can be either light or dark.
+Make sure you downloaded the wallpapers. Now go to settings again, panel and move it down by unchecking the lock panel and moving
+it to the bottom and locking it again. Now in the items tab, select the menu app with a mouse and edit it with the edit button on the bottom. Go to Itens and select windows buttons or a synonmous. click on the settings button, and so click, show plain buttons and disable show button captions or a synonmous. Now close it and click to select Panel 2 and click on the minus button at the top right corner, and confirm. Now, without closing the window, open settings, and click on appearence, and on stlye select Adawita Dark, and close. Now remove the defalut menu and add Whisker Menu. and click to configure it. Click to disable "show apps description" or a synonmous. Now go to appearence and select the icon on Icons and Logos folder and Icons. Now active, position the profile at the bottom or a synonmous, and position the search bar on the bottom. Now in behavior, turn on All Apps(or applications or programs), and now close this.
+Now for this to be really Abéllha OS and not a modded Debian/Ubuntu Xfce session, run this command
