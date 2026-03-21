@@ -100,4 +100,14 @@ Now go to Style and change App Icon Padding to 8 px, and if you want, active Ani
 In execution indicatior (in use apps)(or a synonymous) change it to lines, and to non in use to dots. Now click on override panel theme background color, click in custom and change the color to: #1E2529 (put in a little label at the right top).
 Now close Dash to Panel window, and now enter in the ArcMenu gear. And inside go to, menu now menu layout and modern menu layouts and 11, now, go back and click in Menu theme, click in substitute theme or a synonymous. Click in current theme or a synonymous, and change it to Dark Blue. now go to Menu button and click display style, and icon. and now in choose a new icon select the icon on Icons and Logos folder and enter Icons. Put the White X and done, and to finalize ArcMenu, set icon size to 36.
 Now close ArcMenu Window, and enter on the Desktop Logo gear.And set Filename, and filename dark to logo-text-256.png in Icons And Logos/Icons, and close the window. Now it haves Abéllha OS look. And the ***almost* last thing** is: ……… the system logo.
-First open terminal and type to cd to the Icons and Logos folder and then Logos, and run this: sudo cp * /usr/share/icons/desktop-base/scalable/emblems. Open settings and see if it worked on about system. Now the second-logo part. Now clear the terminal and type cd /usr/share/images/vendor-logos/ and open another tab/window of terminal and cd the folder of Icons and Logos and System
+First open terminal and type to cd to the Icons and Logos folder and then Logos, and run this: sudo cp * /usr/share/icons/desktop-base/scalable/emblems. Open settings and see if it worked on about system. Now the second-logo part. Now clear the terminal and type to cd the folder of Icons and Logos, and cd System.
+Now run this cp * /usr/share/images/vendor-logos/ .
+And the penultimate thing? GDM! So now run this:
+
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub io.github.realmazharhussain.GdmSettings
+
+And flatpak run io.github.realmazharhussain.GdmSettings
+It will open an app. in it choose the blue wallpaper version on Wallpapers, click on apply and reboot.
+And the **LAST** thing. Open GNOME Tweaks,go to Windows and active, Maximize and minimize. Now pick the Abéllha Cursor on Cursor folder and put
