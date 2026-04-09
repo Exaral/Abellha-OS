@@ -1,1 +1,1 @@
-The releases are the installation Guide.md.
+The releases are now on the releases!!!
