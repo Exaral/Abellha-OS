@@ -4,4 +4,5 @@ If The XFCE guide does not make sense in some parts of it, try reading the GNOME
 
 Acess the official page https://exaral.github.io/Abellha-OS/
 
+
 © 2026 - Exaral. All rights reserved.
