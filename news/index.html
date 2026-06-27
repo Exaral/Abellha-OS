@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Abéllha OS - News</title>
+  
+  <link rel="stylesheet" href="dark.css">
+  
   <style>
     /* Copy the entire <style> block from index.html here */
     body { background-color: #1a1a1a; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; height: auto; margin: 0; box-sizing: border-box; padding-bottom: 50px; padding-top: 60px; }
@@ -15,9 +18,105 @@
     .tab.active { border-bottom: 3px solid #007bff; font-weight: bold; color: #fff; background-color: #333; }
     .page-content { width: 100%; max-width: 600px; padding: 20px; box-sizing: border-box; background-color: #222; border: 1px solid #444; margin-top: 30px; border-radius: 4px; }
     .social-icon { margin-top: 30px; }
+
+    :root {
+      --m3-radius-xl: 28px;
+      --m3-radius-pill: 9999px;
+    }
+    body.dark {
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+    }
+    body.dark a { color: var(--md-sys-color-primary); font-weight: 500; }
+    body.dark strong { color: var(--md-sys-color-tertiary); }
+    body.dark .tabs {
+      display: flex;
+      position: fixed; 
+      top: 20px; 
+      left: 50%;
+      transform: translateX(-50%); 
+      width: auto; 
+      max-width: 90%;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline); 
+      border-radius: var(--m3-radius-pill); 
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    body.dark .tab {
+      flex: none;
+      padding: 12px 24px;
+      color: var(--md-sys-color-on-surface);
+      font-weight: 500;
+      border-right: 1px solid var(--md-sys-color-outline); 
+      background-color: transparent;
+    }
+    body.dark .tab:last-child { border-right: none; }
+    body.dark .tab:hover { background-color: var(--md-sys-color-surface-container-high); }
+    body.dark .tab.active {
+      font-weight: 600;
+      color: var(--md-sys-color-on-secondary-container);
+      background-color: var(--md-sys-color-secondary-container);
+      border-bottom: none;
+    }
+    body.dark .page-content {
+      padding: 30px;
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--m3-radius-xl); 
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .theme-switch-container {
+      position: fixed;
+      top: 75px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1001;
+      font-size: 14px;
+      font-weight: 500;
+      color: #b0b0b0;
+    }
+    body.dark .theme-switch-container {
+      color: var(--md-sys-color-on-background);
+      top: 20px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 32px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #444; border: 2px solid #888; border-radius: 16px; transition: .3s;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 16px; width: 16px; left: 6px; bottom: 6px;
+      background-color: #b0b0b0; border-radius: 50%; transition: .3s;
+    }
+    body.dark input:checked + .slider {
+      background-color: var(--md-sys-color-primary-container);
+      border-color: var(--md-sys-color-primary);
+    }
+    body.dark input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: var(--md-sys-color-on-primary-container);
+      height: 24px; width: 24px; left: 2px; bottom: 2px;
+    }
   </style>
 </head>
-<body>
+<body class="dark">
+
+  <div class="theme-switch-container">
+    <span>Material 3</span>
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
 
   <!-- Navigation Bar (News Highlighted) -->
   <div class="tabs">
@@ -27,7 +126,7 @@
     <a href="https://exaral.github.io/Abellha-OS/news/" class="tab active">News</a>
   </div>
 
-  <img src="logo.png" alt="Abéllha OS Logo" width="100" style="margin-top: 20px;">
+  <img src="logo.png" id="site-logo" alt="Abéllha OS Logo" width="100" style="margin-top: 20px;">
   <h1><u>News & System Updates</u></h1>
 
   <div class="page-content">
@@ -54,6 +153,20 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 
+<script type="text/javascript">
+  const toggle = document.getElementById('theme-toggle');
+  const logo = document.getElementById('site-logo');
+
+  toggle.addEventListener('change', function() {
+    if (this.checked) {
+      document.body.classList.add('dark');
+      logo.src = 'emblem-debian.svg';
+    } else {
+      document.body.classList.remove('dark');
+      logo.src = 'logo.png';
+    }
+  });
+</script>
 </body>
 </html>
 

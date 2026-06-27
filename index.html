@@ -7,8 +7,14 @@
   <meta name="keywords" content="Abéllha-OS, Linux, Open Source, Exaral, Operating System, Exaral Support">
   <meta name="google-site-verification" content="google88b90a3357537695" />
   
+  <link rel="stylesheet" href="dark.css">
+  
   <style>
-    /* Universal Layout Base */
+    :root {
+      --m3-radius-xl: 28px;
+      --m3-radius-pill: 9999px;
+    }
+
     body {
       background-color: #1a1a1a;
       color: #e0e0e0;
@@ -21,13 +27,12 @@
       margin: 0;
       box-sizing: border-box;
       padding-bottom: 50px; 
-      padding-top: 60px; 
+      padding-top: 100px; 
     }
     a { color: #FF0000; text-decoration: none; font-weight: bold; }
     strong { color: #D4AF37; font-weight: bold; }
     p, h1, h3 { text-align: center; max-width: 800px; }
 
-    /* Navigational Top Bar Links */
     .tabs {
       display: flex;
       position: fixed; 
@@ -37,6 +42,11 @@
       background-color: #2a2a2a;
       border-bottom: 2px solid #444;
       z-index: 1000; 
+      transform: none;
+      max-width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
     }
     .tab {
       flex: 1;
@@ -44,7 +54,10 @@
       text-align: center;
       color: #b0b0b0;
       font-size: 15px;
+      font-weight: normal;
       transition: background 0.2s, color 0.2s;
+      border-right: none;
+      white-space: nowrap;
     }
     .tab:hover { background-color: #333; color: #fff; }
     .tab.active {
@@ -54,7 +67,6 @@
       background-color: #333;
     }
 
-    /* Page Content Box */
     .page-content {
       width: 100%;
       max-width: 600px;
@@ -64,13 +76,107 @@
       border: 1px solid #444;
       margin-top: 30px;
       border-radius: 4px;
+      box-shadow: none;
     }
     .social-icon { margin-top: 30px; }
+
+    .theme-switch-container {
+      position: fixed;
+      top: 75px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1001;
+      font-size: 14px;
+      font-weight: 500;
+      color: #b0b0b0;
+    }
+    body.dark .theme-switch-container {
+      color: var(--md-sys-color-on-background);
+      top: 20px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 32px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #444; border: 2px solid #888; border-radius: 16px; transition: .3s;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 16px; width: 16px; left: 6px; bottom: 6px;
+      background-color: #b0b0b0; border-radius: 50%; transition: .3s;
+    }
+    body.dark input:checked + .slider {
+      background-color: var(--md-sys-color-primary-container);
+      border-color: var(--md-sys-color-primary);
+    }
+    body.dark input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: var(--md-sys-color-on-primary-container);
+      height: 24px; width: 24px; left: 2px; bottom: 2px;
+    }
+
+    body.dark {
+      background-color: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+    }
+    body.dark a { color: var(--md-sys-color-primary); font-weight: 500; }
+    body.dark strong { color: var(--md-sys-color-tertiary); }
+    
+    body.dark .tabs {
+      display: flex;
+      position: fixed; 
+      top: 20px; 
+      left: 50%;
+      transform: translateX(-50%); 
+      width: auto; 
+      max-width: 90%;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline); 
+      border-radius: var(--m3-radius-pill); 
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+    body.dark .tab {
+      flex: none;
+      padding: 12px 24px;
+      color: var(--md-sys-color-on-surface);
+      font-weight: 500;
+      border-right: 1px solid var(--md-sys-color-outline); 
+      background-color: transparent;
+    }
+    body.dark .tab:last-child { border-right: none; }
+    body.dark .tab:hover { background-color: var(--md-sys-color-surface-container-high); }
+    body.dark .tab.active {
+      font-weight: 600;
+      color: var(--md-sys-color-on-secondary-container);
+      background-color: var(--md-sys-color-secondary-container);
+      border-bottom: none;
+    }
+    body.dark .page-content {
+      padding: 30px;
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: var(--m3-radius-xl); 
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
-<body>
+<body class="dark">
 
-  <!-- Navigation Bar -->
+  <div class="theme-switch-container">
+    <span>Material 3</span>
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
   <div class="tabs">
     <a href="https://exaral.github.io/Abellha-OS/" class="tab active">About</a>
     <a href="https://exaral.github.io/Abellha-OS/downloads/" class="tab">Downloads</a>
@@ -78,11 +184,9 @@
     <a href="https://exaral.github.io/Abellha-OS/news/" class="tab">News</a>
   </div>
 
-  <!-- Header Section -->
   <img src="logo.png" alt="Abéllha OS Logo" width="100" style="margin-top: 20px;">
   <h1><u>Welcome to the Abéllha OS Page!</u></h1>
   
-  <!-- About Content Box -->
   <div class="page-content">
     <h3><u>About the Project</u></h3>
     <p><strong>Abéllha OS</strong> is an <strong>Open Source project</strong>, like any Linux distribution, licensed under the <u style="text-decoration: underline; text-decoration-color: #D4AF37;"><a href="https://github.com/Exaral/Abellha-OS/blame/main/LICENSE" target="_blank"><strong>GNU GPLv3 license</strong></a></u>.</p>
@@ -90,11 +194,22 @@
     <p>You are <strong>TOTALLY FREE</strong> to create distributions based on Abéllha OS.</p>
   </div>
 
-  <!-- Footer Elements -->
   <a href="https://github.com/Exaral/Abellha-OS/" class="social-icon"> 
     <img src="25231.png" width="50" alt="GitHub Logo"> 
   </a>
   <p>© 2026 - Exaral. All rights reserved.</p>
+
+<script type="text/javascript">
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('change', function() {
+    if (this.checked) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  });
+</script>
+
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
