@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Abéllha OS - About</title>
+  <meta name="description" content="Abéllha OS official Site">
+  <meta name="keywords" content="Abéllha-OS, Linux, Open Source, Exaral, Operating System, Exaral Support">
+  <meta name="google-site-verification" content="google88b90a3357537695" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      color: #e0e0e0;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding-top: 100px;
+      padding-bottom: 50px;
+    }
+
+    h1, h3 {
+      text-align: center;
+      font-weight: 600;
+      color: #FFD580;
+    }
+
+    a {
+      color: #FF6B6B;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    a:hover { color: #FF9B9B; }
+
+    strong { color: #FFD580; }
+
+    .tabs {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #222;
+      border-bottom: 2px solid #444;
+      z-index: 1000;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+    }
+    .tab {
+      flex: 1;
+      padding: 15px 20px;
+      text-align: center;
+      color: #b0b0b0;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+    .tab:hover {
+      background-color: #333;
+      color: #fff;
+    }
+    .tab.active {
+      border-bottom: 3px solid #FF6B6B;
+      font-weight: bold;
+      color: #fff;
+      background-color: #333;
+    }
+
+    .page-content {
+      width: 100%;
+      max-width: 700px;
+      padding: 40px;
+      background-color: #242424;
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .social-icon img {
+      transition: transform 0.3s ease;
+    }
+    .social-icon img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid #444;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .theme-switch-container {
+      position: fixed;
+      top: 75px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #b0b0b0;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 32px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #444; border-radius: 16px; transition: .3s;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 16px; width: 16px; left: 6px; bottom: 6px;
+      background-color: #b0b0b0; border-radius: 50%; transition: .3s;
+    }
+    input:checked + .slider {
+      background-color: #FF6B6B;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="theme-switch-container">
+    <span>Material 3</span>
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="tabs">
+    <a href="https://exaral.github.io/Abellha-OS/" class="tab active">About</a>
+    <a href="https://exaral.github.io/Abellha-OS/downloads/" class="tab">Downloads</a>
+    <a href="https://exaral.github.io/Abellha-OS/support/" class="tab">Computer Support</a>
+    <a href="https://exaral.github.io/Abellha-OS/news/" class="tab">News</a>
+  </div>
+
+  <img src="logo.png" alt="Abéllha OS Logo" width="100" style="margin-top: 20px;">
+  <h1><u>Welcome to the Abéllha OS Page!</u></h1>
+
+  <div class="page-content">
+    <h3><u>About the Project</u></h3>
+    <p><strong>Abéllha OS</strong> is an <strong>Open Source project</strong>, like any Linux distribution, licensed under the 
+      <a href="https://github.com/Exaral/Abellha-OS/blame/main/LICENSE" target="_blank"><strong>GNU GPLv3 license</strong></a>.
+    </p>
+    <p>Abéllha OS is a non-profit project. <strong>COMMERCIALIZATION, UNAUTHORIZED COPYING, OR CLAIMING OWNERSHIP OF THIS PROJECT IS STRICTLY PROHIBITED.</strong></p>
+    <p>You are <strong>TOTALLY FREE</strong> to create distributions based on Abéllha OS.</p>
+  </div>
+
+  <div style="display: flex; gap: 20px; justify-content: center; align-items: center; margin-top: 30px;">
+    <a href="https://github.com/Exaral/Abellha-OS/" class="social-icon"> 
+      <img src="GitHub.svg" width="70" alt="GitHub Logo">
+    </a>
+    <a href="https://discord.gg/sgzHWJYQb" class="social-icon"> 
+      <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg" width="50" alt="Discord Logo"> 
+    </a>
+  </div>
+
+  <footer>
+    © 2026 - Exaral. All rights reserved.
+  </footer>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('change', function() {
+    document.body.classList.toggle('dark', this.checked);
+  });
+</script>
+
+</body>
+</html>
