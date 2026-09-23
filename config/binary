@@ -117,3 +117,4 @@ LB_SWAP_FILE_SIZE="512"
 
 # Enable/disable UEFI secure boot support
 LB_UEFI_SECURE_BOOT="auto"
+LB_DEBIAN_INSTALLER="none"
