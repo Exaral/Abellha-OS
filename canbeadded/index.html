@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Abéllha OS - About</title>
+  <meta name="description" content="Abéllha OS official Site">
+  <meta name="keywords" content="Abéllha-OS, Linux, Open Source, Exaral, Operating System, Exaral Support">
+  <meta name="google-site-verification" content="google88b90a3357537695" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Modern, self-contained styles (move to dark.css if preferred) -->
+  <style>
+    /* ---------- Variables ---------- */
+    :root{
+      --bg-1: #0f1113;
+      --bg-2: #151718;
+      --card: #1f2325;
+      --muted: #9aa3a6;
+      --accent: #ff6b5f;
+      --accent-2: #ffd27a;
+      --gold: #d4af37;
+      --glass: rgba(255,255,255,0.03);
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+      --max-width: 980px;
+      --content-width: 720px;
+      --shadow-1: 0 8px 30px rgba(2,6,10,0.6);
+      --glass-border: 1px solid rgba(255,255,255,0.04);
+      --mono: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ---------- Base ---------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: var(--mono);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(255,107,95,0.04), transparent 8%),
+        linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color: #efece9;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:28px 20px 60px;
+    }
+
+    /* ---------- Top navigation (centered pill) ---------- */
+    .nav-wrap{
+      position:fixed;
+      top:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:1200;
+      width:min(92%, 920px);
+      display:flex;
+      justify-content:center;
+      pointer-events:auto;
+    }
+    .tabs{
+      display:flex;
+      gap:6px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:6px;
+      border-radius:var(--radius-pill);
+      box-shadow: var(--shadow-1);
+      border: var(--glass-border);
+      align-items:center;
+      overflow:hidden;
+    }
+    .tab{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 18px;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+      text-decoration:none;
+      border-radius:12px;
+      transition: all .22s ease;
+      white-space:nowrap;
+    }
+    .tab:hover{ color:#fff; transform:translateY(-2px); background:rgba(255,255,255,0.02) }
+    .tab.active{
+      color:#111;
+      background: linear-gradient(90deg,var(--accent), #ff8f7f);
+      box-shadow: 0 6px 18px rgba(255,107,95,0.12), inset 0 -2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* ---------- Theme toggle (top-right) ---------- */
+    .theme-switch-container{
+      position:fixed;
+      top:18px;
+      right:20px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color:var(--muted);
+      z-index:1201;
+      font-size:13px;
+      background:transparent;
+      padding:6px 8px;
+      border-radius:10px;
+    }
+    .switch{ position:relative; width:52px; height:30px; display:inline-block }
+    .switch input{ display:none }
+    .slider{
+      position:absolute; inset:0; border-radius:999px; background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.03); transition:all .28s cubic-bezier(.2,.9,.2,1);
+    }
+    .slider:before{
+      content:""; position:absolute; left:4px; top:4px; width:22px; height:22px; border-radius:50%;
+      background:#fff; transform:translateX(0); transition:all .28s cubic-bezier(.2,.9,.2,1);
+      box-shadow: 0 4px 10px rgba(2,6,10,0.6);
+    }
+    .switch input:checked + .slider{ background: linear-gradient(90deg,var(--accent), #ff8f7f) }
+    .switch input:checked + .slider:before{ transform:translateX(22px); background:#fff; width:20px; height:20px }
+
+    /* ---------- Header / logo ---------- */
+    header{
+      margin-top:64px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+    header img{ width:96px; height:auto; border-radius:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.6) }
+
+    h1{
+      margin:0;
+      font-size:22px;
+      letter-spacing:0.2px;
+      color:var(--accent-2);
+      text-decoration:underline;
+      text-decoration-color: rgba(212,175,55,0.12);
+      text-underline-offset:6px;
+    }
+
+    /* ---------- Main content card ---------- */
+    main{
+      width:100%;
+      max-width:var(--max-width);
+      display:flex;
+      justify-content:center;
+      margin-top:18px;
+    }
+    .page-content{
+      width:100%;
+      max-width:var(--content-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius-lg);
+      padding:34px;
+      box-shadow: var(--shadow-1);
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+    .page-content h3{
+      margin-top:0;
+      margin-bottom:12px;
+      color:var(--gold);
+      font-size:18px;
+      text-decoration:underline;
+      text-underline-offset:6px;
+    }
+    .page-content p{
+      margin:12px 0;
+      color: #efece9;
+      line-height:1.6;
+      font-size:15px;
+    }
+    .page-content p strong{ color:var(--gold); font-weight:700 }
+
+    /* ---------- Social icons ---------- */
+    .socials{
+      display:flex;
+      gap:20px;
+      justify-content:center;
+      align-items:center;
+      margin-top:26px;
+    }
+    .socials a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:64px;
+      height:64px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      transition: transform .22s ease, box-shadow .22s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    .socials a img{ width:40px; height:auto; display:block }
+    .socials a:hover{ transform:translateY(-6px) scale(1.02); box-shadow: 0 18px 40px rgba(0,0,0,0.6) }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top:28px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      width:100%;
+      max-width:var(--max-width);
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:720px){
+      header{ margin-top:48px }
+      .page-content{ padding:22px; margin-top:12px }
+      .tabs{ gap:4px; padding:6px }
+      .tab{ padding:8px 12px; font-size:13px }
+      .theme-switch-container{ display:none } /* hide toggle on very small screens */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme toggle (keeps behavior but purely visual here) -->
+  <div class="theme-switch-container" aria-hidden="true">
+    <span>Material 3</span>
+    <label class="switch" title="Toggle theme">
+      <input type="checkbox" id="theme-toggle" checked>
+      <span class="slider" aria-hidden="true"></span>
+    </label>
+  </div>
+
+  <!-- Centered pill navigation -->
+  <div class="nav-wrap" role="navigation" aria-label="Main navigation">
+    <nav class="tabs">
+      <a href="https://exaral.github.io/Abellha-OS/" class="tab active" aria-current="page">About</a>
+      <a href="https://exaral.github.io/Abellha-OS/downloads/" class="tab">Downloads</a>
+      <a href="https://exaral.github.io/Abellha-OS/support/" class="tab">Computer Support</a>
+      <a href="https://exaral.github.io/Abellha-OS/news/" class="tab">News</a>
+    </nav>
+  </div>
+
+  <!-- Header / logo -->
+  <header>
+    <img src="logo.png" alt="Abéllha OS Logo">
+    <h1><u>Welcome to the Abéllha OS Page!</u></h1>
+  </header>
+
+  <!-- Main content (text unchanged) -->
+  <main>
+    <article class="page-content" role="main">
+      <h3><u>About the Project</u></h3>
+      <p><strong>Abéllha OS</strong> is an <strong>Open Source project</strong>, like any Linux distribution, licensed under the <u style="text-decoration: underline; text-decoration-color: #D4AF37;"><a href="https://github.com/Exaral/Abellha-OS/blame/main/LICENSE" target="_blank" rel="noopener noreferrer"><strong>GNU GPLv3 license</strong></a></u>.</p>
+      <p>Abéllha OS is a non-profit project. <strong>COMMERCIALIZATION, UNAUTHORIZED COPYING, OR CLAIMING OWNERSHIP OF THIS PROJECT IS STRICTLY PROHIBITED.</strong></p>
+      <p>You are <strong>TOTALLY FREE</strong> to create distributions based on Abéllha OS.</p>
+    </article>
+  </main>
+
+  <!-- Social icons (keeps same links) -->
+  <div class="socials" aria-label="Social links">
+    <a href="https://github.com/Exaral/Abellha-OS/" class="social-icon" aria-label="GitHub">
+      <img src="GitHub.svg" alt="GitHub Logo">
+    </a>
+    <a href="https://discord.gg/sgzHWJYQb" class="social-icon" aria-label="Discord">
+      <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/66e3d7f4ef6498ac018f2c55_Symbol.svg" alt="Discord Logo">
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2026 - Exaral. All rights reserved.</p>
+  </footer>
+
+  <!-- Minimal JS for toggle (keeps original behavior) -->
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('change', function() {
+      // purely visual toggle; original page used body.dark class.
+      // Keep this simple: toggling a class allows future theme expansions.
+      document.documentElement.classList.toggle('m3-dark', this.checked);
+    });
+  </script>
+</body>
+</html>

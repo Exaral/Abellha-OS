@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abéllha OS — an open-source, non-profit Linux distribution licensed under GNU GPLv3.">
+    <title>Abéllha OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --bg0: #080808;
+            --bg1: #0F0F0F;
+            --bg2: #181818;
+            --bg3: #202020;
+            --bg4: #2A2A2A;
+            --honey: #D42020;
+            --honey-hi: #FF3030;
+            --honey-lo: #8B1010;
+            --honey-a05: rgba(212,32,32,0.05);
+            --honey-a10: rgba(212,32,32,0.10);
+            --honey-a20: rgba(212,32,32,0.20);
+            --t0: #F2F2F2;
+            --t1: #8A8A8A;
+            --t2: #505050;
+            --bd: rgba(212,32,32,0.09);
+            --bd-hi: rgba(212,32,32,0.28);
+            --r-sm: 8px;
+            --r-md: 14px;
+            --r-lg: 22px;
+            --ease: 0.2s ease;
+        }
+
+        body {
+            background: var(--bg0);
+            color: var(--t0);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        strong { font-weight: 600; color: var(--t0); }
+
+        .nav {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 200;
+            height: 60px;
+            padding: 0 clamp(1rem, 5vw, 3rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8,8,8,0.88);
+            border-bottom: 1px solid var(--bd);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: box-shadow 0.3s ease;
+        }
+        .nav.scrolled { box-shadow: 0 6px 30px rgba(0,0,0,0.55); }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .nav-logo-x {
+            width: 26px;
+            height: 26px;
+            flex-shrink: 0;
+            transition: opacity var(--ease);
+        }
+        .nav-brand:hover .nav-logo-x { opacity: 0.8; }
+        .nav-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            color: var(--t0);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--t1);
+            transition: color var(--ease);
+        }
+        .nav-links a:hover { color: var(--honey); }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--honey);
+            color: #F2F2F2 !important;
+            font-weight: 700 !important;
+            font-size: 0.82rem !important;
+            padding: 6px 14px;
+            border-radius: var(--r-sm);
+            transition: background var(--ease), transform var(--ease);
+        }
+        .nav-btn:hover {
+            background: var(--honey-hi);
+            transform: translateY(-1px);
+        }
+
+        /* Hambúrguer e Animação do Menu Mobile */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--t1);
+            padding: 6px;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--ease);
+        }
+        .nav-toggle:hover { color: var(--t0); }
+        
+        .nav-toggle svg line {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            transform-origin: center;
+        }
+        /* Transformação das linhas em X */
+        .nav-toggle.open .line-1 { transform: translateY(6px) rotate(45deg); }
+        .nav-toggle.open .line-2 { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open .line-3 { transform: translateY(-6px) rotate(-45deg); }
+
+        .nav-mobile {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: rgba(8,8,8,0.97);
+            border-bottom: 1px solid var(--bd);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            /* Estados iniciais da animação de fechamento */
+            max-height: 0;
+            opacity: 0;
+            padding: 0 clamp(1rem,5vw,3rem);
+            overflow: hidden;
+            visibility: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.4s ease, visibility 0.4s;
+        }
+        /* Estado ativo da animação de abertura */
+        .nav-mobile.open {
+            max-height: 420px;
+            opacity: 1;
+            padding: 1rem clamp(1rem,5vw,3rem);
+            visibility: visible;
+        }
+        .nav-mobile a {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: var(--r-sm);
+            font-size: 0.9rem;
+            color: var(--t1);
+            font-weight: 500;
+            transition: background var(--ease), color var(--ease);
+        }
+        .nav-mobile a:hover {
+            background: var(--bg2);
+            color: var(--honey);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 100px clamp(1rem,5vw,3rem) 80px;
+        }
+
+        #hex-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .hero-radial {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 55% 55% at 50% 44%, rgba(212,32,32,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 720px;
+        }
+
+        .h-badge, .h-title, .h-sub, .h-actions {
+            opacity: 0;
+            animation: heroIn 0.75s ease forwards;
+        }
+        .h-badge   { animation-delay: 0.15s; }
+        .h-title   { animation-delay: 0.32s; }
+        .h-sub     { animation-delay: 0.48s; }
+        .h-actions { animation-delay: 0.62s; }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .h-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.09em;
+            color: var(--honey);
+            background: var(--honey-a05);
+            border: 1px solid var(--honey-a20);
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 2.25rem;
+        }
+        .h-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--honey);
+            box-shadow: 0 0 8px var(--honey);
+            animation: dotPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%,100% { opacity: 1; }
+            50%      { opacity: 0.2; }
+        }
+
+        .h-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3.8rem, 9.5vw, 8rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.93;
+            color: var(--t0);
+            margin-bottom: 1.75rem;
+        }
+        .h-title .accent { color: var(--honey); }
+
+        .h-sub {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            color: var(--t1);
+            max-width: 490px;
+            margin: 0 auto 2.75rem;
+            line-height: 1.8;
+        }
+
+        .h-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--honey);
+            color: #F2F2F2;
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 12px 22px;
+            border-radius: var(--r-sm);
+            transition: background var(--ease), transform var(--ease), box-shadow var(--ease);
+        }
+        .btn-gold:hover {
+            background: var(--honey-hi);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212,32,32,0.28);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: transparent;
+            color: var(--t1);
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 12px 22px;
+            border-radius: var(--r-sm);
+            border: 1px solid var(--bd);
+            transition: border-color var(--ease), color var(--ease), transform var(--ease);
+        }
+        .btn-ghost:hover {
+            border-color: var(--bd-hi);
+            color: var(--t0);
+            transform: translateY(-2px);
+        }
+
+        .hero-scroll-cue {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--t2);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            animation: cueBounce 2.4s ease-in-out infinite;
+            opacity: 0;
+            animation: cueFade 1s ease 1.2s forwards, cueBounce 2.4s ease 2.2s infinite;
+        }
+        @keyframes cueFade   { to { opacity: 1; } }
+        @keyframes cueBounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50%      { transform: translateX(-50%) translateY(5px); }
+        }
+
+        .wrap {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem,5vw,3rem);
+        }
+
+        .section {
+            padding: 96px 0;
+        }
+
+        .eyebrow {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--honey);
+            margin-bottom: 1rem;
+        }
+
+        .section-h {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.028em;
+            line-height: 1.1;
+            color: var(--t0);
+            margin-bottom: 1.25rem;
+        }
+
+        .section-body {
+            color: var(--t1);
+            font-size: 1rem;
+            line-height: 1.82;
+            max-width: 640px;
+        }
+
+        .divider {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem,5vw,3rem);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .divider-line { flex: 1; height: 1px; background: var(--bd); }
+        .divider-hex {
+            width: 11px;
+            height: 11px;
+            position: relative;
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+        .divider-hex::before,
+        .divider-hex::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100%; height: 2px;
+            background: var(--honey);
+            border-radius: 1px;
+            transform-origin: center;
+        }
+        .divider-hex::before { transform: translate(-50%,-50%) rotate(45deg); }
+        .divider-hex::after  { transform: translate(-50%,-50%) rotate(-45deg); }
+
+        .warn {
+            margin-top: 2.25rem;
+            background: rgba(212,32,32,0.048);
+            border: 1px solid rgba(212,32,32,0.22);
+            border-radius: var(--r-md);
+            padding: 1.5rem 1.75rem;
+        }
+        .warn-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 0.75rem;
+        }
+        .warn-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--honey);
+        }
+        .warn-body {
+            font-size: 0.9rem;
+            color: var(--t1);
+            line-height: 1.78;
+        }
+
+        .license-card {
+            margin-top: 2.5rem;
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r-lg);
+            padding: 2rem 2.25rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .license-card:hover { border-color: var(--bd-hi); }
+
+        .lic-badge {
+            flex-shrink: 0;
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lic-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--t0);
+            margin-bottom: 0.5rem;
+        }
+        .lic-info p {
+            font-size: 0.875rem;
+            color: var(--t1);
+            line-height: 1.78;
+        }
+
+        .freedom-grid {
+            margin-top: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.25rem;
+        }
+        .freedom-card {
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r-md);
+            padding: 1.75rem;
+            transition: border-color var(--ease), transform var(--ease), background var(--ease);
+        }
+        .freedom-card:hover {
+            border-color: var(--bd-hi);
+            background: var(--bg3);
+            transform: translateY(-3px);
+        }
+        .freedom-icon {
+            font-size: 1.75rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            color: var(--honey);
+        }
+        .freedom-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.97rem;
+            font-weight: 600;
+            color: var(--t0);
+            margin-bottom: 0.5rem;
+        }
+        .freedom-card p {
+            font-size: 0.855rem;
+            color: var(--t1);
+            line-height: 1.72;
+        }
+
+        .step-list {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .step-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--honey-a10);
+            border: 1px solid var(--honey-a20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--honey);
+            margin-top: 1px;
+        }
+        .step-body h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.97rem;
+            font-weight: 600;
+            color: var(--t0);
+            margin-bottom: 0.3rem;
+        }
+        .step-body p {
+            font-size: 0.865rem;
+            color: var(--t1);
+            line-height: 1.72;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.875rem;
+            margin-top: 2rem;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r-sm);
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            color: var(--t1);
+            transition: border-color var(--ease), color var(--ease);
+        }
+        .chip:hover { border-color: var(--bd-hi); color: var(--honey); }
+        .chip-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--t2);
+            background: var(--bg3);
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .note {
+            margin-top: 2rem;
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-left: 2px solid var(--honey);
+            border-radius: 0 var(--r-sm) var(--r-sm) 0;
+            padding: 1.125rem 1.5rem;
+        }
+        .note-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--honey);
+            margin-bottom: 0.375rem;
+        }
+        .note p {
+            font-size: 0.875rem;
+            color: var(--t1);
+            line-height: 1.75;
+        }
+
+        .closing {
+            margin-top: 3rem;
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r-lg);
+            padding: 2.25rem 2rem;
+            text-align: center;
+        }
+        .closing-emoji {
+            font-size: 2.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.875rem;
+            line-height: 1;
+            color: var(--honey);
+        }
+        .closing h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--t0);
+            margin-bottom: 0.5rem;
+        }
+        .closing p {
+            font-size: 0.9rem;
+            color: var(--t1);
+            max-width: 440px;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        .footer {
+            border-top: 1px solid var(--bd);
+            padding: 2.5rem clamp(1rem,5vw,3rem);
+        }
+        .footer-inner {
+            max-width: 880px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-hex {
+            width: 18px;
+            height: 18px;
+            position: relative;
+            opacity: 0.65;
+            flex-shrink: 0;
+        }
+        .footer-hex::before,
+        .footer-hex::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100%; height: 2.5px;
+            background: var(--honey);
+            border-radius: 1px;
+            transform-origin: center;
+        }
+        .footer-hex::before { transform: translate(-50%,-50%) rotate(45deg); }
+        .footer-hex::after  { transform: translate(-50%,-50%) rotate(-45deg); }
+        .footer-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--t1);
+        }
+        .footer-copy { font-size: 0.78rem; color: var(--t2); }
+        .footer-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--t2);
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            padding: 3px 9px;
+            border-radius: 4px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .license-card { flex-direction: column; align-items: flex-start; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-brand { justify-content: center; }
+        }
+
+        :focus-visible { outline: 2px solid var(--honey); outline-offset: 3px; border-radius: 4px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                transition-duration: 0.001ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+            .nav-mobile { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#inicio" class="nav-brand" aria-label="Abéllha OS — home">
+        <svg class="nav-logo-x" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line x1="3" y1="3" x2="23" y2="23" stroke="white" stroke-width="5" stroke-linecap="round"/>
+            <line x1="23" y1="3" x2="3" y2="23" stroke="white" stroke-width="5" stroke-linecap="round"/>
+            <line x1="3" y1="3" x2="23" y2="23" stroke="#D42020" stroke-width="3.2" stroke-linecap="round"/>
+            <line x1="23" y1="3" x2="3" y2="23" stroke="#D42020" stroke-width="3.2" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-name">Abéllha OS</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#license">License</a></li>
+        <li><a href="#freedoms">Freedoms</a></li>
+        <li><a href="#iso">ISO</a></li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="https://discord.gg/28d3pDQzQD">Discord</a></li>
+        <li>
+            <a href="https://github.com/Exaral/Abellha-OS" class="nav-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github" aria-hidden="true"></i>
+                GitHub
+            </a>
+        </li>
+    </ul>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" id="nav-toggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <line class="line-1" x1="3" y1="6" x2="21" y2="6"/>
+            <line class="line-2" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="line-3" x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile menu">
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#license">License</a>
+        <a href="#freedoms">Freedoms</a>
+        <a href="#iso">ISO</a>
+        <a href="#support">Support</a>
+        <a href="https://discord.gg/28d3pDQzQD">Discord</a>
+        <a href="https://github.com/Exaral/Abellha-OS" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </nav>
+</nav>
+
+<section class="hero" id="inicio" aria-label="Introduction">
+    <canvas id="hex-canvas" aria-hidden="true"></canvas>
+    <div class="hero-radial" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <div class="h-badge">
+            <span class="h-dot" aria-hidden="true"></span>
+            Open Source · GNU GPLv3 · Non-Profit
+        </div>
+
+        <h1 class="h-title">Abéllha <span class="accent">OS</span></h1>
+
+        <p class="h-sub">
+            Welcome to the official GitHub page — an open-source Linux distribution, built and maintained by the community, available for everyone.
+        </p>
+
+        <div class="h-actions">
+            <a href="https://github.com/Exaral/Abellha-OS" class="btn-gold" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github" aria-hidden="true"></i>
+                View on GitHub
+            </a>
+            <a href="#iso" class="btn-ghost">
+                Submit an ISO
+                <i class="fas fa-arrow-down" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-scroll-cue" aria-hidden="true">
+        <span>scroll</span>
+        <i class="fas fa-arrow-down"></i>
+    </div>
+</section>
+
+<main>
+
+    <div class="wrap">
+        <div class="section reveal" id="about">
+            <span class="eyebrow">// about the project</span>
+            <h2 class="section-h">A Linux distribution<br>built for the community.</h2>
+            <p class="section-body">
+                Abéllha OS is an open-source project — like any Linux distribution — developed on a non-profit basis and freely available to everyone. The goal is to offer a solid, customizable, and accessible foundation for anyone who wants to explore, modify, and contribute.
+            </p>
+
+            <div class="warn" role="alert">
+                <div class="warn-head">
+                    <i class="fas fa-exclamation-triangle" style="color: var(--honey);" aria-hidden="true"></i>
+                    <span class="warn-label">Strictly Prohibited Use</span>
+                </div>
+                <p class="warn-body">
+                    <strong>Commercialization</strong>, <strong>unauthorized copying</strong>, or <strong>claiming ownership</strong> of this project are strictly prohibited. Abéllha OS is a community-driven, non-commercial project — any violation of these guidelines directly breaches the terms of the GNU GPLv3 license.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider reveal" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-hex"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal" id="news">
+            <span class="eyebrow">// system news & updates</span>
+            <h2 class="section-h">Latest announcements</h2>
+            <p class="section-body">
+                Stay up to date with system news and the development progress of our official desktop environments.
+            </p>
+
+            <div class="step-list" role="list">
+                <div class="step-item" role="listitem">
+                    <div class="step-num" aria-hidden="true"><i class="fas fa-bullhorn"></i></div>
+                    <div class="step-body">
+                        <h4>Abéllha OS 3 GNOME Released!</h4>
+                        <p>The new stable version bringing the complete and modern GNOME desktop experience is now available for testing and contribution.</p>
+                    </div>
+                </div>
+                <div class="step-item" role="listitem">
+                    <div class="step-num" aria-hidden="true"><i class="fas fa-clock"></i></div>
+                    <div class="step-body">
+                        <h4>Abéllha OS 3 Xfce may come soon…</h4>
+                        <p>Our lightweight environment focused on performance and more modest computers is currently underway and should arrive soon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider reveal" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-hex"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal" id="license">
+            <span class="eyebrow">// license</span>
+            <h2 class="section-h">GNU General Public<br>License v3.0</h2>
+            <p class="section-body">
+                Abéllha OS is licensed under the GNU GPLv3 — the free software license that guarantees everyone the right to use, study, share, and modify the software. Any derivative work must be published under the same terms.
+            </p>
+
+            <div class="license-card">
+                <div class="lic-badge" aria-hidden="true">
+                    <svg viewBox="0 0 80 92" width="80" height="92" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="40,1 79,22 79,69 40,91 1,69 1,22"
+                                 fill="rgba(212,32,32,0.07)"
+                                 stroke="rgba(212,32,32,0.22)"
+                                 stroke-width="1.2"/>
+                        <text x="40" y="34" text-anchor="middle"
+                              font-family="JetBrains Mono, monospace"
+                              font-size="10.5" font-weight="500" fill="#D42020">GNU</text>
+                        <text x="40" y="49" text-anchor="middle"
+                              font-family="JetBrains Mono, monospace"
+                              font-size="10.5" font-weight="500" fill="#D42020">GPL</text>
+                        <text x="40" y="64" text-anchor="middle"
+                              font-family="JetBrains Mono, monospace"
+                              font-size="10.5" font-weight="500" fill="#D42020">v3.0</text>
+                    </svg>
+                </div>
+                <div class="lic-info">
+                    <h3>GNU General Public License v3.0</h3>
+                    <p>
+                        You have the right to run, copy, modify, and distribute this software freely. Any derived version of Abéllha OS must retain the same license, preserving the principles of free software. This license explicitly prohibits privatizing the code or imposing additional restrictions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider reveal" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-hex"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal" id="freedoms">
+            <span class="eyebrow">// your freedoms</span>
+            <h2 class="section-h">What you can do<br>with Abéllha OS.</h2>
+            <p class="section-body">
+                Abéllha OS was built on the principles of free software. You have real freedom — not just to use it, but to actively participate in the project and the community.
+            </p>
+
+            <div class="freedom-grid">
+                <div class="freedom-card">
+                    <div class="freedom-icon" aria-hidden="true"><i class="fas fa-code-branch"></i></div>
+                    <h3>Create derivative distributions</h3>
+                    <p>You have total freedom to create your own Linux distribution based on Abéllha OS, with modifications and customizations of your choice.</p>
+                </div>
+                <div class="freedom-card">
+                    <div class="freedom-icon" aria-hidden="true"><i class="fas fa-compact-disc"></i></div>
+                    <h3>Create and publish an ISO</h3>
+                    <p>The project does not have an official ISO file. If you want to make the system easier to access, you can generate and publish an Abéllha OS ISO yourself.</p>
+                </div>
+                <div class="freedom-card">
+                    <div class="freedom-icon" aria-hidden="true"><i class="fas fa-microscope"></i></div>
+                    <h3>Study and modify the code</h3>
+                    <p>All source code is available. Explore, modify, improve — and share your contributions with the community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider reveal" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-hex"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal" id="iso">
+            <span class="eyebrow">// ISO submission</span>
+            <h2 class="section-h">Created an ISO?<br>We'd love to know.</h2>
+            <p class="section-body">
+                If you create an Abéllha OS ISO file, send it to us — we will evaluate it and give you feedback. We cannot publish your ISO on your behalf, but you are free to publish it yourself. If you want to authorize us to publish it as well, we would be very grateful.
+            </p>
+
+            <div class="step-list" role="list">
+                <div class="step-item" role="listitem">
+                    <div class="step-num" aria-hidden="true">1</div>
+                    <div class="step-body">
+                        <h4>Create your ISO</h4>
+                        <p>Generate an installable ISO file based on Abéllha OS, with default settings or your own custom configurations.</p>
+                    </div>
+                </div>
+                <div class="step-item" role="listitem">
+                    <div class="step-num" aria-hidden="true">2</div>
+                    <div class="step-body">
+                        <h4>Send it to us</h4>
+                        <p>Forward it to our email or through the GitHub inbox. We will review it and provide feedback regarding its quality.</p>
+                    </div>
+                </div>
+                <div class="step-item" role="listitem">
+                    <div class="step-num" aria-hidden="true">3</div>
+                    <div class="step-body">
+                        <h4>Publish with freedom</h4>
+                        <p>You can publish your ISO freely. If you authorize us to publish it too, we are very grateful for your contribution to the community.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <a href="mailto:github.Exaral@outlook.com.br" class="chip">
+                    <span class="chip-tag">Email</span>
+                    github.Exaral@outlook.com.br
+                </a>
+            </div>
+
+            <div class="note">
+                <div class="note-label">📌 Note about the guides</div>
+                <p>
+                    If the <strong>XFCE</strong> guide doesn't make sense in some parts, try reading the <strong>GNOME</strong> version instead. Some parts of the guides are identical and can perfectly complement each other.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider reveal" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-hex"></div>
+        <div class="divider-line"></div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal" id="support">
+            <span class="eyebrow">// technical support</span>
+            <h2 class="section-h">Need help?</h2>
+            <p class="section-body">
+                Is your computer having operating system issues? Reach out to our support team to get technical assistance directly from our experts:
+            </p>
+
+            <div class="contact-row" style="margin-bottom: 1.5rem;">
+                <a href="mailto:github.Exaral@outlook.com" class="chip">
+                    <span class="chip-tag">Support</span>
+                    github.Exaral@outlook.com
+                </a>
+            </div>
+
+            <div class="warn" role="alert" style="margin-top: 1rem;">
+                <div class="warn-head">
+                    <i class="fas fa-info-circle" style="color: var(--honey);" aria-hidden="true"></i>
+                    <span class="warn-label">Important Notice</span>
+                </div>
+                <p class="warn-body">
+                    If your computer is a <strong>Mac</strong>, we won't be able to help much in that case. For <strong>Windows</strong> support (although we also work actively with Linux), please feel free to contact us anytime.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="section reveal">
+            <div class="closing">
+                <span class="closing-emoji" role="img" aria-label="abellha os">
+                    <i class="fab fa-linux"></i>
+                </span>
+                <h3>That's it!</h3>
+                <p>Thank you for being part of the Abéllha OS community. Together, we keep software free and accessible for everyone.</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="footer-hex" aria-hidden="true"></div>
+            <span class="footer-name">Abéllha OS</span>
+        </div>
+        <span class="footer-copy">Non-profit project · Open source community</span>
+        <span class="footer-tag">GNU GPLv3</span>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const canvas = document.getElementById('hex-canvas');
+    const ctx    = canvas.getContext('2d');
+    const RED    = '212,32,32';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let cells = [];
+    let raf;
+
+    function buildGrid() {
+        cells = [];
+        const W = canvas.width  = window.innerWidth;
+        const H = canvas.height = window.innerHeight;
+
+        const spacing = 52;
+        const cols = Math.ceil(W / spacing) + 2;
+        const rows = Math.ceil(H / spacing) + 2;
+
+        for (let row = -1; row < rows; row++) {
+            for (let col = -1; col < cols; col++) {
+                cells.push({
+                    cx: col * spacing + spacing / 2,
+                    cy: row * spacing + spacing / 2,
+                    phase:   Math.random() * Math.PI * 2,
+                    speed:   0.18 + Math.random() * 0.30,
+                    peak:    0.04 + Math.random() * 0.11,
+                    pulsing: Math.random() > 0.55
+                });
+            }
+        }
+    }
+
+    function drawX(cx, cy, size, alpha) {
+        const h = size * 0.42;
+        ctx.beginPath();
+        ctx.moveTo(cx - h, cy - h); ctx.lineTo(cx + h, cy + h);
+        ctx.moveTo(cx + h, cy - h); ctx.lineTo(cx - h, cy + h);
+        ctx.strokeStyle = `rgba(${RED},${alpha.toFixed(4)})`;
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    }
+
+    function draw(ts) {
+        const t = ts / 1000;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        /* static grid dots */
+        for (const c of cells) {
+            ctx.beginPath();
+            ctx.arc(c.cx, c.cy, 1, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${RED},0.07)`;
+            ctx.fill();
+        }
+
+        /* pulsing X marks */
+        for (const c of cells) {
+            if (!c.pulsing) continue;
+            const raw = Math.sin(t * c.speed + c.phase);
+            const a   = c.peak * Math.max(0, raw);
+            if (a < 0.006) continue;
+            drawX(c.cx, c.cy, 10, a);
+        }
+
+        raf = requestAnimationFrame(draw);
+    }
+
+    if (!prefersReducedMotion) {
+        buildGrid();
+        raf = requestAnimationFrame(draw);
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                cancelAnimationFrame(raf);
+                buildGrid();
+                raf = requestAnimationFrame(draw);
+            }, 160);
+        }, { passive: true });
+    }
+})();
+
+(function() {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('vis');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+
+    els.forEach(el => obs.observe(el));
+})();
+
+(function() {
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 28);
+    }, { passive: true });
+})();
+
+(function() {
+    const btn    = document.getElementById('nav-toggle');
+    const mobile = document.getElementById('nav-mobile');
+    if (!btn || !mobile) return;
+
+    btn.addEventListener('click', () => {
+        const open = mobile.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+
+    mobile.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            mobile.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.setAttribute('aria-label', 'Open menu');
+        });
+    });
+})();
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a1a2cafedf0db1c34060136/1jpr3t41c';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</body>
+</html>

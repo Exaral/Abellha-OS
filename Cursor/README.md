@@ -1,0 +1,1 @@
+Hey, this is cursor files to put in ~/.icons folder. Sincerely, its a little embarassing that this cursor is ugly. But if you think so, use Adawita instead or download from https://www.gnome-look.org/
