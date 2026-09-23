@@ -1,0 +1,11 @@
+PRETTY_NAME="Abéllha OS GNU/Linux 4 (frost-fire)"
+NAME="Abéllha OS GNU/Linux"
+VERSION_ID="4"
+VERSION="4 (frost-fire)"
+VERSION_CODENAME=frost-fire
+DEBIAN_VERSION_FULL=4.0
+ID=abéllha-os
+ID_LIKE=debian
+HOME_URL="https://exaral.github.io/Abellha-OS"
+SUPPORT_URL="https://exaral.github.io/Abellha-OS/support"
+BUG_REPORT_URL="https://github.com/Exaral/Abellha-OS/issues/"

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Add the UI screen to the 'show' sequence
+sed -i '/- summary/i \  - packagechooser' /etc/calamares/settings.conf
+
+# Add the script execution to the 'exec' sequence
+sed -i '/- packages/a \  - contextualprocess' /etc/calamares/settings.conf

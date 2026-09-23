@@ -1,0 +1,200 @@
+# Changelog
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [55] - 2026-09-21
+
+- Refresh borders after hidden or minimized windows are shown so monitor
+  topology changes cannot leave restored windows with stale geometry.
+- Track monitor departure, maximize state, and highest-scale monitor changes
+  through the same coalesced before-redraw update queue.
+- Add compatibility coverage for the new lifecycle events and verify them
+  across GNOME Shell 45 through 50.
+
+## [54] - 2026-09-21
+
+- Schedule coalesced border work through Mutter's frame-aware `Meta.Laters`
+  queue so geometry is refreshed immediately before the stage is redrawn.
+- Require the compositor scheduler at runtime while preserving time slicing,
+  cancellation, failure isolation, and one final update for each signal burst.
+- Add scheduler regression coverage and verify the before-redraw API across
+  GNOME Shell 45 through 50.
+
+## [53] - 2026-09-15
+
+- Recalculate borders after implicit monitor moves and display changes,
+  including lid-close relocation, without relying on another actor allocation
+  notification.
+- Preserve immediate resizing while coalescing a deferred geometry update, and
+  refresh edge hiding and corner radii on position changes and monitor entry.
+- Add regression coverage for monitor transitions, temporary monitor loss,
+  update coalescing, and cleanup, and verify the monitor-entry signal on GNOME
+  45–50.
+
+## [52] - 2026-09-14
+
+- Add the `md.obsidian.Obsidian` class to the shared application config so that
+  class-based matching covers both installed Obsidian variants.
+- Clarify that the plain `obsidian` entry maps to the older class name without a
+  corner radius, while the newer one uses rounded borders.
+
+## [51] - 2026-09-07
+
+- Time-slice border attachment and updates through one idle queue, coalesce
+  repeated geometry signals, and prevent requeued windows from starving later
+  work so large window batches do not block the Shell main thread.
+- Give one window tracker ownership of pending and active records, stale
+  callbacks, signals, border leases, and retryable cleanup, with transactional
+  actor attachment and clipping restoration across failures and disposal.
+- Bound configuration and regex work by document, entry, candidate, pattern,
+  identity, match, and recursion limits; isolate malformed rules and unsafe CSS
+  while preserving valid application configuration.
+- Make preferences edits immutable and transactional, with canonical
+  case-insensitive app keys, debounced saves, external-update handling,
+  failed-write rollback, and validated full-config import and export.
+- Consolidate configuration, geometry, compatibility, UI, lifecycle, and test
+  helpers behind clear ownership while preserving GNOME Shell 45 through 50
+  behavior.
+
+## [50] - 2026-09-04
+
+- Follow the Shell accent color on GNOME 47 and newer with translucent and solid
+  modes, retain the fallback for older versions, and allow custom colors.
+- Adopt concise semantic and geometry-based preset names, add reusable CSD and
+  disabled presets, and use them throughout the shipped application config.
+- Rename the persisted settings revision to `schema-version` and restart it at
+  version 1 without coupling shipped base-config updates to migrations.
+
+## [49] - 2026-09-02
+
+- Organize shared policy, GNOME Shell integration, and preferences into clear
+  `common/`, `shell/`, and `prefs/` layers while keeping both root entrypoints
+  small and preserving existing behavior.
+- Extend import and package verification to cover the complete nested runtime
+  structure.
+
+## [48] - 2026-09-01
+
+- Polish preferences spacing and action sizing, and arrange per-side margins and
+  corner radii in responsive two-column grids that remain readable at narrow
+  window sizes.
+
+## [47] - 2026-08-31
+
+- Store user app configuration as compact rules layered over shipped defaults;
+  version 47 starts this layer clean instead of retaining or migrating the
+  monolithic app configuration from earlier releases, while retaining an
+  independent storage-format version for future breaking migrations.
+- Allow the shipped configuration layer to be disabled completely while keeping
+  the same independent user rules.
+- Apply tombstones uniformly, cascade suppressed presets safely, and isolate
+  malformed manual rules instead of discarding the complete user layer.
+- Redesign preferences with compact quick-add editors, app-key search, separate
+  user and effective JSON views, and transactional full-config import/export.
+- Correct edge-aware margins and corner radii, and keep custom regex configs
+  ahead of modified shipped patterns.
+- Add automated coverage for configuration storage, border geometry, window
+  lifecycle, schemas, and release packaging, plus standalone GJS compatibility
+  and preferences module-load checks with every supported Shell version using
+  locked test dependencies and locale-independent package verification.
+
+## [46] - 2026-08-30
+
+- Add a GTK 3 preset and more application defaults.
+- Prevent GNOME Shell crashes when displays power off or disconnect.
+
+## [45] - 2026-08-26
+
+- Add more application presets.
+
+## [44] - 2026-06-28
+
+- More presets.
+
+## [43] - 2026-06-28
+
+- More presets along with GNOME 50 compatibility in the v42+.
+
+## [37] - 2026-02-12
+
+- Remove maximized borders per app config; superseded by smart borders.
+
+## [36] - 2025-02-02
+
+- Even smoother resizing, with immediate commit.
+
+## [35] - 2025-01-24
+
+- Size change logic tweaks to workaround artifacts for smooth resize.
+- Added color picker for color based prefs
+
+## [33] - 2025-01-15
+
+- Enable by default: `default-maximized-borders` and `modal-enabled`
+- Simplify handling for config settings migration and defaults.
+
+## [32] - 2025-01-15
+
+- Regression fix: Progagate defaults correctly on unknown windows.
+
+## [31] - 2025-01-15
+
+- Simplify defaults
+
+## [30] - 2025-01-14
+
+- Automatic detection logic to handle default borders.
+- Margins are simpler with effective compositor area calc using both
+  `frame_rect` and `buffer_rect` to take into account non frame area like
+  shadows.
+
+## [27] - 2025-01-11
+
+- Regression fix: Re-enable borders due to improper actors check.
+
+## [26] - 2025-01-10
+
+- Internal: Better safety against disposed actors.
+
+## [24] - 2025-01-09
+
+- Internal cleanup.
+
+## [23] - 2025-01-08
+
+- More robust tracking and cleanup handling.
+
+## [22] - 2025-01-08
+
+- Option: `verbose-logging`: Toggle to enable track/untrack debug logs.
+
+## [21] - 2025-01-08
+
+- Regression fix: Fixes the tracker cleanup logic bug that was introduced in v20
+  and some more code clean-up.
+
+## [20] - 2025-01-08
+
+- Bugfix: Preferences: Debounced config changes, more reslient UI.
+
+## [19] - 2025-01-08
+
+### Added
+
+- Make all class and app matching case in-sensitive by default.
+  - For case specific matching, the regex prefixes can be used.
+
+- Option: `modal-enabled` (default: `false`)
+  - By default we now only apply to top level windows only skipping models. This
+    is default since can't know what toolkits or margins the modals will use
+    that can defer from the top level window. The option is there to enable
+    older behavior if needed.
+
+- Bugfix: Preferences: app config add, remove, delete inconsistencies in the UI.
+- Updated config.
+
+## [1] - 2025-12-27
+
+### Added
+
+- Feature complete release.

@@ -1,0 +1,318 @@
+@define-color accent_color #ff0000;
+@define-color accent_bg_color #ff0000;
+@define-color accent_fg_color #ffffff;
+@define-color destructive_color #ff0000;
+@define-color destructive_bg_color #ff7b63;
+@define-color destructive_fg_color #ffffff;
+@define-color success_color #8ff0a4;
+@define-color success_bg_color #26a269;
+@define-color success_fg_color #ffffff;
+@define-color warning_color #f8e45c;
+@define-color warning_bg_color #cd9309;
+@define-color warning_fg_color rgba(0, 0, 0, 0.8);
+@define-color error_color #ff7b63;
+@define-color error_bg_color #c01c28;
+@define-color error_fg_color #ffffff;
+@define-color window_bg_color #070707;
+@define-color window_fg_color #ffffff;
+@define-color view_bg_color #000000;
+@define-color view_fg_color #ffffff;
+@define-color headerbar_bg_color #000000;
+@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_border_color #ffffff;
+@define-color headerbar_backdrop_color #000000;
+@define-color headerbar_shade_color #ff0000;
+@define-color card_bg_color #0f0f0f;
+@define-color card_fg_color #ffffff;
+@define-color card_shade_color rgba(255,255,255,0.08);
+@define-color dialog_bg_color #070707;
+@define-color dialog_fg_color #ffffff;
+@define-color popover_bg_color #0f0f0f;
+@define-color popover_fg_color #ffffff;
+@define-color shade_color rgba(255, 255, 255, 0.08);
+@define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
+@define-color blue_1 #99c1f1;
+@define-color blue_2 #62a0ea;
+@define-color blue_3 #3584e4;
+@define-color blue_4 #1c71d8;
+@define-color blue_5 #1a5fb4;
+@define-color green_1 #8ff0a4;
+@define-color green_2 #57e389;
+@define-color green_3 #33d17a;
+@define-color green_4 #2ec27e;
+@define-color green_5 #26a269;
+@define-color yellow_1 #f9f06b;
+@define-color yellow_2 #f8e45c;
+@define-color yellow_3 #f6d32d;
+@define-color yellow_4 #f5c211;
+@define-color yellow_5 #e5a50a;
+@define-color orange_1 #ffbe6f;
+@define-color orange_2 #ffa348;
+@define-color orange_3 #ff7800;
+@define-color orange_4 #e66100;
+@define-color orange_5 #c64600;
+@define-color red_1 rgb(255,90,90);
+@define-color red_2 rgb(255,48,48);
+@define-color red_3 rgb(255,0,0);
+@define-color red_4 rgb(224,0,0);
+@define-color red_5 rgb(189,0,0);
+@define-color purple_1 #dc8add;
+@define-color purple_2 #c061cb;
+@define-color purple_3 #9141ac;
+@define-color purple_4 #813d9c;
+@define-color purple_5 #613583;
+@define-color brown_1 #cdab8f;
+@define-color brown_2 #b5835a;
+@define-color brown_3 #986a44;
+@define-color brown_4 #865e3c;
+@define-color brown_5 #63452c;
+@define-color light_1 #ffffff;
+@define-color light_2 #f6f5f4;
+@define-color light_3 #deddda;
+@define-color light_4 #c0bfbc;
+@define-color light_5 #9a9996;
+@define-color dark_1 #77767b;
+@define-color dark_2 #5e5c64;
+@define-color dark_3 #3d3846;
+@define-color dark_4 #241f31;
+@define-color dark_5 #000000;
+/* ==========================================================================
+   Red Accent Theme for GTK4 / libadwaita - Polished & Junk-Free
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. COLOR PALETTE
+   -------------------------------------------------------------------------- */
+@define-color accent_color #ff0000;
+@define-color accent_bg_color #ff0000;
+@define-color accent_fg_color #ffffff;
+
+@define-color hover_overlay rgba(255, 0, 0, 0.16);
+@define-color press_overlay rgba(255, 0, 0, 0.28);
+@define-color focus_ring_color #ff5c4d;
+
+@define-color window_bg_color #070707;
+@define-color window_fg_color #ffffff;
+@define-color view_bg_color #070707;
+@define-color view_fg_color #ffffff;
+
+@define-color headerbar_bg_color #000000;
+@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_border_color rgba(255, 255, 255, 0.08);
+@define-color headerbar_backdrop_color #000000;
+
+@define-color sidebar_bg_color #000000;
+@define-color sidebar_fg_color #ffffff;
+@define-color sidebar_border_color rgba(255, 0, 0, 0.5);
+
+@define-color border_color rgba(255, 255, 255, 0.09);
+
+/* --------------------------------------------------------------------------
+   1. HEADERBAR
+   -------------------------------------------------------------------------- */
+headerbar {
+    background-color: @headerbar_bg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+}
+
+headerbar viewswitcher button,
+headerbar stackswitcher button {
+    border-radius: 99px;
+    background-image: none;
+    transition: background-color 120ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. BUTTONS & SELECTION LOCK
+   -------------------------------------------------------------------------- */
+/* Base unselected state */
+button {
+    border-radius: 99px;
+    background-color: #000000;
+    transition: background-color 120ms ease;
+}
+
+/* Hover and Press for unselected buttons */
+button:hover {
+    background-color: @hover_overlay;
+}
+
+button:active {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+}
+
+/* LOCKED SELECTED STATE: Overrides hover/active flicker */
+button:checked,
+button:checked:hover,
+button:checked:active,
+headerbar viewswitcher button:checked,
+headerbar viewswitcher button:checked:hover,
+headerbar viewswitcher button:checked:active {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+    background-image: none;
+}
+
+/* EXCEPTION 1: Color Select Buttons (Square, not roundy) 
+   Added 'window' for specificity instead of !important */
+window colorbutton > button,
+window button.color {
+    border-radius: 8px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+/* EXCEPTION 2: "Apply" / Suggested Action Button (ALWAYS OPAQUE RED) 
+   Added 'window' for specificity instead of !important */
+window button.suggested-action,
+window button.suggested-action:hover,
+window button.suggested-action:active {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+    border: none;
+    background-image: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. LINKED BUTTONS (Half-Roundy)
+   -------------------------------------------------------------------------- */
+.linked > button,
+box.linked > button {
+    border-radius: 0;
+    border-right: 1px solid @border_color;
+    margin: 0;
+}
+
+.linked > button:last-child,
+box.linked > button:last-child {
+    border-right: none;
+}
+
+/* Horizontal rounding */
+.linked:not(.vertical) > button:first-child,
+box.linked.horizontal > button:first-child {
+    border-top-left-radius: 99px;
+    border-bottom-left-radius: 99px;
+}
+
+.linked:not(.vertical) > button:last-child,
+box.linked.horizontal > button:last-child {
+    border-top-right-radius: 99px;
+    border-bottom-right-radius: 99px;
+}
+
+/* Vertical rounding */
+.linked.vertical > button:first-child,
+box.linked.vertical > button:first-child {
+    border-top-left-radius: 99px;
+    border-top-right-radius: 99px;
+    border-bottom: 1px solid @border_color;
+    border-right: none;
+}
+
+.linked.vertical > button:last-child,
+box.linked.vertical > button:last-child {
+    border-bottom-left-radius: 99px;
+    border-bottom-right-radius: 99px;
+    border-bottom: none;
+    border-right: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. TEXT BOXES, INPUTS & SWITCHES
+   -------------------------------------------------------------------------- */
+/* Multiline Text Boxes (Like the Custom CSS area) */
+textview, 
+textview text {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Single-line inputs & wrappers get the red border and black background */
+window entry,
+window spinbutton,
+window searchentry,
+scrolledwindow.frame {
+    background-color: #000000;
+    border: 1px solid @accent_bg_color;
+}
+
+/* Keep single-line inputs roundy */
+window entry, 
+window spinbutton, 
+window searchentry {
+    border-radius: 99px;
+    padding: 6px 14px;
+}
+
+/* Checkboxes and switches */
+checkbutton check,
+radio,
+switch {
+    background-color: #000000;
+    border-radius: 99px;
+}
+
+checkbutton check:checked,
+checkbutton check:checked:hover,
+radio:checked,
+radio:checked:hover,
+switch:checked,
+switch:checked:hover {
+    background-color: @accent_bg_color;
+    border-color: @accent_bg_color;
+}
+
+/* --------------------------------------------------------------------------
+   5. LISTS & SIDEBAR
+   -------------------------------------------------------------------------- */
+.boxed-list {
+    border-radius: 24px;
+    background-color: #000000;
+    border: 1px solid @border_color;
+}
+
+.boxed-list row.activatable:hover {
+    background-color: @hover_overlay;
+}
+
+.boxed-list row.activatable:active {
+    background-color: @accent_bg_color;
+}
+
+.navigation-sidebar row {
+    border-radius: 99px;
+    background-color: transparent;
+    margin: 2px 8px;
+}
+
+.navigation-sidebar row:hover {
+    background-color: @hover_overlay;
+}
+
+/* Locked sidebar selection */
+.navigation-sidebar row:selected,
+.navigation-sidebar row:selected:hover {
+    background-color: @accent_bg_color;
+    color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   6. SCROLLBARS
+   -------------------------------------------------------------------------- */
+scrollbar slider {
+    border-radius: 99px;
+    min-width: 8px;
+    min-height: 8px;
+    background-color: rgba(255, 255, 255, 0.2); /* Default resting state */
+    transition: background-color 120ms ease;
+}
+
+scrollbar slider:hover {
+    background-color: @hover_overlay; /* Transparent red on hover */
+}
+
+scrollbar slider:active {
+    background-color: @accent_bg_color; /* Opaque red on click/drag */
+}

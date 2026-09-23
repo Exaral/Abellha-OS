@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="logo-widget">
+  <enum id="org.gnome.shell.extensions.logo-widget.Position">
+    <value nick="center" value="0"/>
+    <value nick="bottom-left" value="1"/>
+    <value nick="bottom-center" value="2"/>
+    <value nick="bottom-right" value="3" />
+    <value nick="top-left" value="4"/>
+    <value nick="top-center" value="5"/>
+    <value nick="top-right" value="6" />
+  </enum>
+
+  <schema path="/org/gnome/shell/extensions/logo-widget/"
+          id="org.gnome.shell.extensions.logo-widget">
+    <key type="s" name="logo-file">
+      <default>''</default>
+      <summary>Logo file</summary>
+      <description>The full logo file path</description>
+    </key>
+    <key type="s" name="logo-file-dark">
+      <default>''</default>
+      <summary>Logo file in dark mode</summary>
+      <description>The full logo file path for dark mode</description>
+    </key>
+    <key name="logo-position"
+         enum="org.gnome.shell.extensions.logo-widget.Position">
+      <default>'bottom-right'</default>
+      <summary>Logo position</summary>
+      <description>
+        The position logo of the logo; valid values are 'center',
+        'bottom-left', 'bottom-center', 'bottom-right',
+        'top-left', 'top-center' and 'top-right'
+      </description>
+    </key>
+    <key type="d" name="logo-size">
+      <range min="2.0" max="20.0"/>
+      <default>10.0</default>
+      <summary>Logo size</summary>
+      <description>The logo size in percent relative to the screen width</description>
+    </key>
+    <key type="u" name="logo-border">
+      <range min="0" max="250"/>
+      <default>50</default>
+      <summary>Logo border</summary>
+      <description>The border around the logo</description>
+    </key>
+    <key type="u" name="y-logo-border">
+      <range min="0" max="250"/>
+      <default>50</default>
+      <summary>Logo border</summary>
+      <description>The border around the logo</description>
+    </key>
+    <key type="u" name="logo-opacity">
+      <range min="0" max="255"/>
+      <default>255</default>
+      <summary>Logo opacity</summary>
+      <description>The opacity of the logo</description>
+    </key>
+    <key type="b" name="logo-always-visible">
+      <default>true</default>
+      <summary>Logo always visible</summary>
+      <description>Show the logo even on a non default background</description>
+    </key>
+    <key type="b" name="overview-visible">
+      <default>false</default>
+      <summary>Visible in workspaceview</summary>
+      <description>Show the logo in workspacevew</description>
+    </key>
+    <key type="b" name="settingsp">
+      <default>false</default>
+      <summary>Visible in workspaceview</summary>
+      <description>Show the logo in workspacevew</description>
+    </key>
+  </schema>
+</schemalist>
