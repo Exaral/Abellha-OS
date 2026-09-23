@@ -17,6 +17,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y live-build debootstrap genisoimage squashfs-tools cpio wget
 
+      - name: Patch live-build Contents path
+        run: |
+          # Corrige o caminho do Contents-amd64.gz para incluir a pasta /main/
+          sudo sed -i 's|dists/\${LB_PARENT_DISTRIBUTION}/Contents-|dists/\${LB_PARENT_DISTRIBUTION}/main/Contents-|g' /usr/lib/live/build/lb_chroot_linux-image || true
+          sudo sed -i 's|dists/\$LB_DISTRIBUTION/Contents-|dists/\$LB_DISTRIBUTION/main/Contents-|g' /usr/lib/live/build/lb_chroot_linux-image || true
+
       - name: Build ISO
         run: |
           sudo lb config
