@@ -113,5 +113,5 @@ LB_SWAP_FILE_SIZE="512"
 
 # Enable/disable UEFI secure boot support
 LB_UEFI_SECURE_BOOT="auto"
-LB_BOOTLOGO="false"
-LB_SYSLINUX_SPLASH="false"
+LB_BOOTLOGO="true"
+LB_SYSLINUX_SPLASH="true"
