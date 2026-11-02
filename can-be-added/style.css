@@ -1,0 +1,109 @@
+.dropdown{
+    display: inline-block;
+}
+body{
+    background-color: #070707;
+}
+#welcome{
+        text-shadow: 3px 3px 10px #76eef6,-3px -3px 10px #fc8000;
+        color:white;
+}
+#abos{
+    border: black solid 14px;
+    border-radius: 30px;
+    background-color: black;
+    color:#ffffff;
+    text-decoration: none;
+}
+#abos:hover{
+    border: rgb(127.5, 0, 0) solid 14px;
+    background-color: rgb(127.5, 0, 0);
+    cursor:pointer;
+}
+#abos:active{
+    border:solid red 14px;
+    background-color: red;
+    font-size: 70%;
+}
+h1::selection{
+    color:red
+}
+p::selection{
+    color:red
+}
+#aboss{
+    border: black solid 14px;
+    border-radius: 30px;
+    background-color: black;
+    color:#ffffff;
+    text-decoration: none;
+}
+#aboss{
+    background-color: red;
+    border:solid red 14px;
+    font-weight:bold
+}
+#aboss:hover{
+    border: rgb(255, 30, 30) solid 14px;
+    background-color: rgb(255, 30, 30);
+    cursor:pointer;
+}
+#aboss:active{
+    border:solid rgb(255, 30, 30) 14px;
+    background-color: rgb(255, 30, 30);
+    font-size: 70%;
+}
+button{
+    border: black solid 14px;
+    border-radius: 30px;
+    background-color: black;
+    color:#ffffff;
+    text-decoration: none;
+}
+button:hover{
+    border: rgb(127.5, 0, 0) solid 14px;
+    background-color: rgb(127.5, 0, 0);
+    cursor:pointer;
+}
+button:active{
+    border:solid red 14px;
+    background-color: red;
+    font-size: 70%;
+}
+.popover{
+   border: black solid 14px;
+    border-radius: 30px;
+    background-color: black;
+    color:#ffffff;
+    text-decoration: none;
+}
+.popover:hover{
+    border: rgb(127.5, 0, 0) solid 14px;
+    background-color: rgb(127.5, 0, 0);
+}
+.popover:active{
+    border:solid red 14px;
+    background-color: red;
+    font-size: 70%;
+}
+.dropdown a{
+    display:block;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.dropdown .content{
+    position:absolute;
+    background-color: black;
+    min-width: 100px;
+    box-shadow: 3px 3px 5px red,-3px -3px 5px red, -3px 3px 5px red, 3px -3px 5px red;
+    border-radius: 30px;
+    display:none
+}
+.dropdown:hover .content{
+    display:block;
+}
+#logo{
+    filter:
+    drop-shadow(3px 3px 10px #76eef6)
+    drop-shadow(-3px -3px 10px #fc8000);
+}
