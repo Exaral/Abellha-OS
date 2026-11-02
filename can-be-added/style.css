@@ -107,3 +107,6 @@ button:active{
     drop-shadow(3px 3px 10px #76eef6)
     drop-shadow(-3px -3px 10px #fc8000);
 }
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
