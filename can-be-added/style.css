@@ -110,3 +110,28 @@ button:active{
 *{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+    .page-content {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #222;
+      border: 1px solid #444;
+      margin-top: 30px;
+      border-radius: 4px;
+      box-shadow: 3px 3px 10px #76eef6,-3px -3px 10px #fc8000;
+      color:#76eef6;
+      margin: 0px auto;
+    }
+.page-content u{
+    color:#fc8000
+}
+.page-content strong{
+    color:#fc8000
+}
+#license,
+#license *{
+    text-decoration: underline !important;
+     text-decoration-color: #D4AF37 !important;
+    color:#D4AF37 !important;
+}
